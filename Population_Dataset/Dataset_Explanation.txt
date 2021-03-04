@@ -1,0 +1,39 @@
+Dataset: 
+
+1. Size of network: parameterized and up to the user. 
+
+2. Location: Around 200 locations available. Seattle by default. 
+
+3. Type of network: Multi-layer contact network.
+	a. Household: Size of a household based on location. All nodes in a household are connected to each other. Highest chances of disease transmission. beta = 3.0
+	b. School: School layer where nodes with age 5-22 are connected with an average degree a typical student. beta = 0.6
+	c. Work: Same as school but in the age group of 22-65 with average degree of a typical worker. beta = 0.6
+	d. Community: To reflect the intermingling of perople in a community setting, like in parks, malls etc. Lowest chances of disease transmission. beta = 0.3
+
+4. Probability: 
+	a. Global Beta: ~0.016. Chance of infection from coming into contact once. 
+	b. Layer Betas: Frequency of contact for two nodes connected in a particular layer. 
+	c. rel_trans: Transmissibility of the source node in an edge. 
+	d. rel_sus: Susceptibility of the destination node in an edge. 
+
+	For an edge 'e' from node 'i' to node 'j' in layer 'l':
+	Probability(e) = global_beta * layer_beta[l] * rel_trans[i] * rel_sus[j]
+
+5. Infecting people: Pass an array of indices to be infected to the API. 
+
+6. Interventions: (following ones are those that can be imlemented with a controllable number of parameters)
+	a. Vaccines: 
+		i. Vaccination target: for each node ID, assign a probability of that node getting vaccinated (flexibility to sub-target population by demographic). 
+		ii. Efficacy: Change 'rel_sus' which affects all incoming edges of a node getting vaccinated. 
+		iii. Timestep: On which day(s) of the simulation to administer the vaccine(s).
+	b. Change-beta: Change the frequency of contact for a particular layer or per-contact risk. for example, close_schools = cv.change_beta(days='2020-09-01', changes=0.1, layers='s') is same as closing 90% of the schools on 1st Sept. 
+	c. Clip_edges: Changes the number of contacts, rather than the per-contact risk. 
+
+7. Feedback: 
+	a. Node-level feedback available in terms of how many nodes get activated and also which nodes get activated. 
+	b. Edge-level feedback can be made available if needed (by putting print statements in source code).
+
+8. Demographic Information: 
+	a. For all nodes in a network, age, and sex will be available based on demographic information of that geographic location. 
+	b. Nodes are distributed into layers based on learned parameters of Synthpops. Household distribution is based on specific geographic locations (around ~20 available).
+	c. Detailed demograhic data available only for Seattle. Dataset is not going to be diverse enough to explore fairness angle. 
