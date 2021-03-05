@@ -36,7 +36,7 @@ for layer in layers:
 		p1 = contacts['p1'][i]
 		p2 = contacts['p2'][i]
 
-		probability = sim.pars['beta_layer'][layer] * sim.pars['beta'] * sim.people.rel_trans[p1] * sim.people.rel_trans[p2]
+		probability = sim.pars['beta_layer'][layer] * sim.pars['beta'] * sim.people.rel_trans[p1] * sim.people.rel_sus[p2]
 
 		G.add_edge(p1, p2, weight = '{:.6f}'.format(probability))
 
