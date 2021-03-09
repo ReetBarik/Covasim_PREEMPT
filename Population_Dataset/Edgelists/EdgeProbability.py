@@ -29,3 +29,7 @@ for i in range(0,13):
     
 for i in range(1,13):
     print(probs['V0'].equals(probs[columns[i]]))
+    
+
+    
+    

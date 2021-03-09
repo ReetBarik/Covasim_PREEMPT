@@ -1,7 +1,7 @@
 import covasim as cv
 
-simB = cv.load('30JanJapan100k.sim')
-sim0 = cv.load('6FebJapan100k.sim')
+simB = cv.load('Japan100kV0.sim')
+sim0 = cv.load('Japan100kV1.sim')
 # sim1 = cv.load('13FebJapan100k.sim')
 # sim2 = cv.load('20FebJapan100k.sim')
 # sim3 = cv.load('27FebJapan100k.sim')
@@ -13,7 +13,7 @@ sim0 = cv.load('6FebJapan100k.sim')
 # sim9 = cv.load('10AprJapan100k.sim')
 # sim10 = cv.load('17AprJapan100k.sim')
 # sim11 = cv.load('24AprJapan100k.sim')
-sim12 = cv.load('30AprJapan100k.sim')
+sim12 = cv.load('Japan100kV13.sim')
 
 
 simB.label = 'Baseline'

@@ -25,8 +25,8 @@ for i in range(0,13):
     
 seed = {}
 
-seed[0] = seedSets[0]
-seed[1] = seedSets[6]
+seed[0] = seedSets[5]
+seed[1] = seedSets[12]
     
 fig, ax = plt.subplots(1, figsize=(16,12))
 venn(seed, ax=ax)

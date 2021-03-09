@@ -9,18 +9,18 @@ import covasim as cv
 import networkx as nx 
 
 pars = dict(
-    pop_size = 100000,
+    pop_size = 100,
     pop_type = 'hybrid',
     location = 'Japan',
     # pop_infected = 100,
     start_day = '2020-01-01',
-    end_day = '2020-04-30'
+    end_day = '2020-01-31'
 )
 
-# sim = cv.Sim(pars)
-sim = cv.load('24AprJapan100k.sim')
-# sim.run(until='2020-01-30')
-# sim.save('30JanJapan100k.sim')
+sim = cv.Sim(pars)
+sim.run(until='2020-01-10')
+sim.save('Japan100kV0.sim')
+# sim = cv.load('Japan100kV12.sim')
 
 # fig = sim.people.plot().savefig('fig.png')
 
@@ -38,9 +38,12 @@ for layer in layers:
 
 		probability = sim.pars['beta_layer'][layer] * sim.pars['beta'] * sim.people.rel_trans[p1] * sim.people.rel_sus[p2]
 
-		G.add_edge(p1, p2, weight = '{:.6f}'.format(probability))
+		if (G.has_edge(p1,p2)):
+			G.add_edge(p1, p2, weight = max(G[p1][p2]['weight'],'{:.6f}'.format(probability)))
+		else:
+			G.add_edge(p1, p2, weight = '{:.6f}'.format(probability))
 
-nx.write_weighted_edgelist(G, "Japan_100k_24Apr.edgelist")
+nx.write_weighted_edgelist(G, "Japan_100k_V0.edgelist")
 
 
 # import covasim as
