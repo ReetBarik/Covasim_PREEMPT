@@ -6,7 +6,10 @@ Created on Fri Feb 12 14:03:01 2021
 """
 
 import covasim as cv
-import networkx as nx 
+import networkx as nx
+import sys
+
+version = int(sys.argv[1])
 
 pars = dict(
     pop_size = 100,
@@ -19,12 +22,12 @@ pars = dict(
 
 sim = cv.Sim(pars)
 sim.run(until='2020-01-10')
-sim.save('Japan100kV0.sim')
+sim.save('Japan100kV' + str(version) + '.sim')
 # sim = cv.load('Japan100kV12.sim')
 
 # fig = sim.people.plot().savefig('fig.png')
 
-G = nx.Graph()
+G = nx.DiGraph()
 G.add_nodes_from(sim.people.uid)
 
 layers = ['h', 's', 'c', 'w']
@@ -36,14 +39,20 @@ for layer in layers:
 		p1 = contacts['p1'][i]
 		p2 = contacts['p2'][i]
 
-		probability = sim.pars['beta_layer'][layer] * sim.pars['beta'] * sim.people.rel_trans[p1] * sim.people.rel_sus[p2]
+		probabilityP1_P2 = sim.pars['beta_layer'][layer] * sim.pars['beta'] * sim.people.rel_trans[p1] * sim.people.rel_sus[p2]
+		probabilityP2_P1 = sim.pars['beta_layer'][layer] * sim.pars['beta'] * sim.people.rel_trans[p2] * sim.people.rel_sus[p1]
 
 		if (G.has_edge(p1,p2)):
-			G.add_edge(p1, p2, weight = max(G[p1][p2]['weight'],'{:.6f}'.format(probability)))
+			G.add_edge(p1, p2, weight = max(G[p1][p2]['weight'],'{:.6f}'.format(probabilityP1_P2)))
 		else:
-			G.add_edge(p1, p2, weight = '{:.6f}'.format(probability))
+			G.add_edge(p1, p2, weight = '{:.6f}'.format(probabilityP1_P2))
 
-nx.write_weighted_edgelist(G, "Japan_100k_V0.edgelist")
+		if (G.has_edge(p2,p1)):
+			G.add_edge(p2, p1, weight = max(G[p2][p1]['weight'],'{:.6f}'.format(probabilityP2_P1)))
+		else:
+			G.add_edge(p2, p1, weight = '{:.6f}'.format(probabilityP2_P1))
+
+nx.write_weighted_edgelist(G, 'Japan_100k_V' + str(version) + '.edgelist')
 
 
 # import covasim as

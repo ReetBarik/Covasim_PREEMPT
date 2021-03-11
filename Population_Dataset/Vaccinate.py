@@ -10,16 +10,54 @@ import json
 import numpy as np
 import random
 from random import randrange
+import networkx as nx
+import sys
+
+version = int(sys.argv[1])
 
 def read_integers(filename):
     with open(filename) as f:
         return [int(x) for x in f]
 
+def return_Graph(sim):
+
+    G = nx.Graph()
+    G.add_nodes_from(sim.people.uid)
+
+    layers = ['h', 's', 'c', 'w']
+
+    maxWeight = 0
+
+    for layer in layers:
+        contacts = sim.people.contacts[layer]
+
+        for i in range(len(contacts)):
+            p1 = contacts['p1'][i]
+            p2 = contacts['p2'][i]
+
+            if (G.has_edge(p1,p2)):
+                G.add_edge(p1, p2, weight = G[p1][p2]['weight'] + sim.pars['beta_layer'][layer])
+                if (maxWeight < G[p1][p2]['weight'] + sim.pars['beta_layer'][layer]):
+                	maxWeight = G[p1][p2]['weight'] + sim.pars['beta_layer'][layer]
+            else:
+                G.add_edge(p1, p2, weight = sim.pars['beta_layer'][layer])
+                if (maxWeight < sim.pars['beta_layer'][layer]):
+                	maxWeight = sim.pars['beta_layer'][layer]
+
+    return G, maxWeight
+
+
 def vaccinateSeeds(sim):
 	inds = sim.people.uid
 	vals = np.zeros(len(sim.people))
 
-	filename = 'Japan_100k_V0.json'
+	G, maxWeight = return_Graph(sim)
+	for p1,p2 in G.edges():
+		G[p1][p2]['weight'] = G[p1][p2]['weight'] / maxWeight
+
+	nx.write_weighted_edgelist(G, 'Japan_100k_Community_V' + str(version) + '.edgelist')
+
+	filename = 'Japan_100k_V' + str(version) + '.json'
 
 	with open(filename) as json_file: 
 		data = json.load(json_file)
@@ -44,7 +82,7 @@ def vaccinateSeeds(sim):
 
 		NodeAttributes[seed] = attr
 
-	with open("SimSeedAttr_V0.json", "w") as outfile:  
+	with open('SimSeedAttr_V' + str(version) + '.json', "w") as outfile:  
 		json.dump(NodeAttributes, outfile)
 
 	output = dict(inds=inds, vals=vals)
@@ -77,15 +115,15 @@ def vaccinateRandomSeeds(sim):
 
 
 # sim1 = cv.load('1MonthJapan100k.sim')
-sim2 = cv.load('Japan100kV0.sim')
+sim2 = cv.load('Japan100kV' + str(version) + '.sim')
 
-vaccine =  cv.vaccine(days=15, rel_sus=0.0, rel_symp=0.02, subtarget=vaccinateSeeds(sim2))
+vaccine =  cv.vaccine(days=15, rel_sus=0.0, rel_symp=0.02, rel_trans = 0.0, subtarget=vaccinateSeeds(sim2))
 vaccine.vaccinations = vaccine.subtarget['vals'].astype(int)
 vaccine.initialize(sim2)
 sim2.pars['interventions'].append(vaccine)
 
 sim2.run(until='2020-01-30')
-sim2.save('Japan100kV1.sim')
+sim2.save('Japan100kV' + str(version + 1) + '.sim')
 
 # sim1.label = 'Baseline'
 # sim2.label = 'Vaccine'

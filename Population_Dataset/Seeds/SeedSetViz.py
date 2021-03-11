@@ -32,5 +32,3 @@ fig, ax = plt.subplots(1, figsize=(16,12))
 venn(seed, ax=ax)
 plt.savefig('set.png', dpi = 500)
 #plt.legend(labels[:-2], ncol=6)
-
-
