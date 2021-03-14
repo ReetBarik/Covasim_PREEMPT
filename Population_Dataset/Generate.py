@@ -12,18 +12,18 @@ import sys
 version = int(sys.argv[1])
 
 pars = dict(
-    pop_size = 100,
+    pop_size = 100000,
     pop_type = 'hybrid',
     location = 'Japan',
     # pop_infected = 100,
     start_day = '2020-01-01',
-    end_day = '2020-01-31'
+    end_day = '2020-04-30'
 )
 
-sim = cv.Sim(pars)
-sim.run(until='2020-01-10')
-sim.save('Japan100kV' + str(version) + '.sim')
-# sim = cv.load('Japan100kV12.sim')
+# sim = cv.Sim(pars)
+# sim.run(until='2020-01-30')
+# sim.save('Japan100kV' + str(version) + '.sim')
+sim = cv.load('Japan100kV' + str(version) + '.sim')
 
 # fig = sim.people.plot().savefig('fig.png')
 
@@ -41,6 +41,12 @@ for layer in layers:
 
 		probabilityP1_P2 = sim.pars['beta_layer'][layer] * sim.pars['beta'] * sim.people.rel_trans[p1] * sim.people.rel_sus[p2]
 		probabilityP2_P1 = sim.pars['beta_layer'][layer] * sim.pars['beta'] * sim.people.rel_trans[p2] * sim.people.rel_sus[p1]
+
+		if (probabilityP1_P2 > 1):
+			probabilityP1_P2 = 1
+
+		if (probabilityP2_P1 > 1):
+			probabilityP2_P1 = 1
 
 		if (G.has_edge(p1,p2)):
 			G.add_edge(p1, p2, weight = max(G[p1][p2]['weight'],'{:.6f}'.format(probabilityP1_P2)))

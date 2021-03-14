@@ -51,11 +51,11 @@ def vaccinateSeeds(sim):
 	inds = sim.people.uid
 	vals = np.zeros(len(sim.people))
 
-	G, maxWeight = return_Graph(sim)
-	for p1,p2 in G.edges():
-		G[p1][p2]['weight'] = G[p1][p2]['weight'] / maxWeight
+	# G, maxWeight = return_Graph(sim)
+	# for p1,p2 in G.edges():
+	# 	G[p1][p2]['weight'] = G[p1][p2]['weight'] / maxWeight
 
-	nx.write_weighted_edgelist(G, 'Japan_100k_Community_V' + str(version) + '.edgelist')
+	# nx.write_weighted_edgelist(G, 'Japan_100k_Community_V' + str(version) + '.edgelist')
 
 	filename = 'Japan_100k_V' + str(version) + '.json'
 
@@ -64,31 +64,16 @@ def vaccinateSeeds(sim):
 
 	seeds = list(data[0]['Seeds'])
 
-	NodeAttributes = {}
-	layers = ['h', 's', 'c', 'w']
-	
-
 	for seed in seeds:
 		vals[seed] = 1.0
-
-		transmissibilities = []
-		attr = {}
-		
-		attr['susceptibility'] = str(sim.people[seed].rel_sus)
-		for l in layers:
-			for c in sim.people[seed].contacts[l]:
-				transmissibilities.append(str(sim.people[int(c)].rel_trans))
-		attr['transmissibilities'] = transmissibilities
-
-		NodeAttributes[seed] = attr
-
-	with open('SimSeedAttr_V' + str(version) + '.json', "w") as outfile:  
-		json.dump(NodeAttributes, outfile)
 
 	output = dict(inds=inds, vals=vals)
 	return output
 
 def vaccinateRandomSeeds(sim):
+
+	r_seeds = [0,1,2,3,4,5,6,7,8,9,10,11,12]
+	random.seed(a = r_seeds[version])
 	inds = sim.people.uid
 	vals = np.zeros(len(sim.people))
 
@@ -117,12 +102,22 @@ def vaccinateRandomSeeds(sim):
 # sim1 = cv.load('1MonthJapan100k.sim')
 sim2 = cv.load('Japan100kV' + str(version) + '.sim')
 
-vaccine =  cv.vaccine(days=15, rel_sus=0.0, rel_symp=0.02, rel_trans = 0.0, subtarget=vaccinateSeeds(sim2))
+vaccine =  cv.vaccine(days=31 + (version * 7), rel_sus=0.0, rel_symp=0.02, subtarget=vaccinateRandomSeeds(sim2))
 vaccine.vaccinations = vaccine.subtarget['vals'].astype(int)
 vaccine.initialize(sim2)
 sim2.pars['interventions'].append(vaccine)
 
-sim2.run(until='2020-01-30')
+# filename = 'Japan_100k_V' + str(version) + '.json'
+filename = 'Vaccinated.txt'
+# with open(filename) as json_file: 
+# 		data = json.load(json_file)
+
+seeds = set(read_integers(filename))
+
+for seed in seeds:
+	sim2.people.rel_trans[seed] = 0.0
+
+sim2.run(until='2020-04-30')
 sim2.save('Japan100kV' + str(version + 1) + '.sim')
 
 # sim1.label = 'Baseline'
