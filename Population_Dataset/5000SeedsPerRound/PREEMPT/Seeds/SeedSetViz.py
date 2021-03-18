@@ -6,7 +6,7 @@ Created on Fri Mar  5 14:12:57 2021
 """
 
 import os
-os.chdir('C:/Users/reetb/Desktop/Covasim_PREEMPT/Population_Dataset/Seeds/')
+os.chdir('C:/Users/reetb/Desktop/Covasim_PREEMPT/Population_Dataset/5000SeedsPerRound/PREEMPT/Seeds/')
 
 import json 
 from venn import venn
@@ -14,6 +14,8 @@ import matplotlib.pyplot as plt
 
 
 seedSets = {}
+
+s = set()
  
 for i in range(0,13):
     filename = 'Japan_100k_V' + str(i) + '.json'
@@ -23,12 +25,16 @@ for i in range(0,13):
         
     seedSets[i] = set(data[0]['Seeds'])
     
-seed = {}
+    for j in data[0]['Seeds']:
+        s.add(j)
 
-seed[0] = seedSets[11]
-seed[1] = seedSets[12]
+for i in range(0,12):    
+    seed = {}
+
+    seed[i] = seedSets[i]
+    seed[i + 1] = seedSets[i + 1]
     
-fig, ax = plt.subplots(1, figsize=(16,12))
-venn(seed, ax=ax)
-plt.savefig('set.png', dpi = 500)
+    fig, ax = plt.subplots(1, figsize=(16,12))
+    venn(seed, ax=ax)
+    plt.savefig('set' + str(i) +'.png', dpi = 500)
 #plt.legend(labels[:-2], ncol=6)

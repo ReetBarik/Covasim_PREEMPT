@@ -32,6 +32,8 @@ G.add_nodes_from(sim.people.uid)
 
 layers = ['h', 's', 'c', 'w']
 
+maxWeight = 0
+
 for layer in layers:
 	contacts = sim.people.contacts[layer]
 
@@ -42,21 +44,26 @@ for layer in layers:
 		probabilityP1_P2 = sim.pars['beta_layer'][layer] * sim.pars['beta'] * sim.people.rel_trans[p1] * sim.people.rel_sus[p2]
 		probabilityP2_P1 = sim.pars['beta_layer'][layer] * sim.pars['beta'] * sim.people.rel_trans[p2] * sim.people.rel_sus[p1]
 
-		if (probabilityP1_P2 > 1):
-			probabilityP1_P2 = 1
-
-		if (probabilityP2_P1 > 1):
-			probabilityP2_P1 = 1
-
 		if (G.has_edge(p1,p2)):
 			G.add_edge(p1, p2, weight = max(G[p1][p2]['weight'],'{:.6f}'.format(probabilityP1_P2)))
+			if (maxWeight < max(G[p1][p2]['weight'],'{:.6f}'.format(probabilityP1_P2))):
+				maxWeight = max(G[p1][p2]['weight'],'{:.6f}'.format(probabilityP1_P2))
 		else:
 			G.add_edge(p1, p2, weight = '{:.6f}'.format(probabilityP1_P2))
+			if (maxWeight < '{:.6f}'.format(probabilityP1_P2)):
+				maxWeight = '{:.6f}'.format(probabilityP1_P2)
 
 		if (G.has_edge(p2,p1)):
 			G.add_edge(p2, p1, weight = max(G[p2][p1]['weight'],'{:.6f}'.format(probabilityP2_P1)))
+			if (maxWeight < max(G[p2][p1]['weight'],'{:.6f}'.format(probabilityP2_P1))):
+				maxWeight = max(G[p2][p1]['weight'],'{:.6f}'.format(probabilityP2_P1))
 		else:
 			G.add_edge(p2, p1, weight = '{:.6f}'.format(probabilityP2_P1))
+			if (maxWeight < '{:.6f}'.format(probabilityP2_P1)):
+				maxWeight = '{:.6f}'.format(probabilityP2_P1)
+
+for i,j in G.edges():
+	G[i][j]['weight'] = G[i][j]['weight'] / maxWeight
 
 nx.write_weighted_edgelist(G, 'Japan_100k_V' + str(version) + '.edgelist')
 
