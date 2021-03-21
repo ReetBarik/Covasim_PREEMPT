@@ -81,6 +81,6 @@ for seed in seeds:
 	sim2.people.rel_trans[seed] = 0.0
 
 # Let it run for a week
-sim2.run(until='2020-02-06')
+sim2.run(until='2020-04-30')
 # Save the sim
 sim2.save('Japan100kV' + str(version + 1) + '.sim')

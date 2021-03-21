@@ -52,6 +52,28 @@ plt.savefig('ProbabilitiesSorted.png', dpi = 500)
 ###########################################################################
 
 
+###################### Un-Sorted Edge Probabilities #######################
+    
+fig, ax = plt.subplots(3, 4, sharex='col', sharey='row')
+
+for i in range(3):
+    for j in range(4):
+        idx = 4 * i + j
+        y = list(probs['V' + str(idx)])
+        x = probs.index
+        ax[i, j].set_ylim(0, 1)
+        ax[i, j].scatter(x,y,s=0.01)
+        
+        
+fig.suptitle('Edge Probability distributions', fontsize=15)
+fig.text(0.5, 0.03, 'Edges', ha='center')
+fig.text(0.04, 0.5, 'Probability', va='center', rotation='vertical')
+        
+plt.savefig('Probabilities.png', dpi = 500)
+
+###########################################################################
+
+
 ###################### Probabilities as Violin PLots ######################
 
 ax = sns.violinplot(data=probs)
@@ -62,5 +84,6 @@ ax.set_ylabel('Edge Probability')
 plt.savefig('ProbabilitiesViolin.png', dpi = 500)
 
 ###########################################################################
+
 
 

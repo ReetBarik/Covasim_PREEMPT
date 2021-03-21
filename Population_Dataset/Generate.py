@@ -21,10 +21,10 @@ pars = dict(
     end_day = '2020-04-30'							   # Simulation end
 )
 
-sim = cv.Sim(pars)
-sim.run(until='2020-01-30')							   # Let it run for the first 30 days
-sim.save('Japan100kV' + str(version) + '.sim')		   # Save the sim
-# sim = cv.load('Japan100kV' + str(version) + '.sim')    # Load the sim 
+# sim = cv.Sim(pars)
+# sim.run(until='2020-01-30')							   # Let it run for the first 30 days
+# sim.save('Japan100kV' + str(version) + '.sim')		   # Save the sim
+sim = cv.load('Japan100kV' + str(version) + '.sim')    # Load the sim 
 
 
 G = nx.DiGraph()									   # Directed graph because for all (p1, p2) there exists an edge from p1 -> p2 and from p2 -> p1
