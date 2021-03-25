@@ -1,0 +1,58 @@
+  Running "Baseline": 2020-01-31 (30/120) (0.18 s)  •••••——————————————— 26%
+  Running "Baseline": 2020-02-10 (40/120) (0.81 s)  ••••••—————————————— 34%
+  Running "Baseline": 2020-02-20 (50/120) (1.54 s)  ••••••••———————————— 42%
+  Running "Baseline": 2020-03-01 (60/120) (2.42 s)  ••••••••••—————————— 50%
+  Running "Baseline": 2020-03-11 (70/120) (3.51 s)  •••••••••••————————— 59%
+  Running "Baseline": 2020-03-21 (80/120) (4.44 s)  •••••••••••••——————— 67%
+  Running "Baseline": 2020-03-31 (90/120) (5.15 s)  •••••••••••••••————— 75%
+  Running "Baseline": 2020-04-10 (100/120) (5.87 s)  ••••••••••••••••———— 83%
+  Running "Baseline": 2020-04-20 (110/120) (6.51 s)  ••••••••••••••••••—— 92%
+  Running "Baseline": 2020-04-30 (120/120) (7.16 s)  •••••••••••••••••••• 100%
+
+Simulation "Baseline" summary:
+   81988 cumulative infections
+   81930 cumulative infectious
+       0 cumulative tests
+       0 cumulative diagnoses
+   81109 cumulative recoveries
+   55263 cumulative symptomatic cases
+    4301 cumulative severe cases
+    1241 cumulative critical cases
+     469 cumulative deaths
+       0 cumulative quarantined people
+
+  Running "V0": 2020-02-10 (40/120) (0.38 s)  ••••••—————————————— 34%
+  Running "V0": 2020-02-20 (50/120) (1.13 s)  ••••••••———————————— 42%
+  Running "V0": 2020-03-01 (60/120) (1.88 s)  ••••••••••—————————— 50%
+  Running "V0": 2020-03-11 (70/120) (2.78 s)  •••••••••••————————— 59%
+  Running "V0": 2020-03-21 (80/120) (3.74 s)  •••••••••••••——————— 67%
+  Running "V0": 2020-03-31 (90/120) (4.54 s)  •••••••••••••••————— 75%
+  Running "V0": 2020-04-10 (100/120) (5.38 s)  ••••••••••••••••———— 83%
+  Running "V0": 2020-04-20 (110/120) (6.08 s)  ••••••••••••••••••—— 92%
+  Running "V0": 2020-04-30 (120/120) (6.73 s)  •••••••••••••••••••• 100%
+
+Simulation "V0" summary:
+   77505 cumulative infections
+   77352 cumulative infectious
+       0 cumulative tests
+       0 cumulative diagnoses
+   76184 cumulative recoveries
+   52360 cumulative symptomatic cases
+    4105 cumulative severe cases
+    1209 cumulative critical cases
+     420 cumulative deaths
+       0 cumulative quarantined people
+
+  Running "V12": 2020-04-30 (120/120) (0.01 s)  •••••••••••••••••••• 100%
+
+Simulation "V12" summary:
+   49666 cumulative infections
+   49294 cumulative infectious
+       0 cumulative tests
+       0 cumulative diagnoses
+   47618 cumulative recoveries
+   33344 cumulative symptomatic cases
+    2601 cumulative severe cases
+     726 cumulative critical cases
+     244 cumulative deaths
+       0 cumulative quarantined people

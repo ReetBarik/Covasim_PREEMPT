@@ -20,7 +20,7 @@ choice = 0
 # PREEMPT prescribed seeds
 def generateSeeds(version):
 
-	filename = 'Japan_100k_V' + str(version) + '.json'         
+	filename = 'Seattle_100k_V' + str(version) + '.json'         
 
 	with open(filename) as json_file: 
 		data = json.load(json_file)
@@ -63,7 +63,7 @@ def vaccinateSeeds(sim, seeds):
 	return output
 
 # Load the sim
-sim2 = cv.load('Japan100kV' + str(version) + '.sim')
+sim2 = cv.load('Seattle100kV' + str(version) + '.sim')
 
 if (choice == 0):
 	seeds = generateSeeds(version)
@@ -83,4 +83,4 @@ for seed in seeds:
 # Let it run for a week
 sim2.run(until='2020-04-30')
 # Save the sim
-sim2.save('Japan100kV' + str(version + 1) + '.sim')
+sim2.save('Seattle100kV' + str(version + 1) + '.sim')

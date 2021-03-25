@@ -15,7 +15,7 @@ version = int(sys.argv[1])
 pars = dict(
     pop_size = 100000,                                 # Number of nodes
     pop_type = 'hybrid',							   # Hybrid population: household, school, work, community layer
-    location = 'Japan',								   # Location and demographic based on Japan
+    location = 'Seattle',								   # Location and demographic based on Seattle
     # pop_infected = 100,
     start_day = '2020-01-01',						   # Simulation start
     end_day = '2020-04-30'							   # Simulation end
@@ -23,8 +23,8 @@ pars = dict(
 
 # sim = cv.Sim(pars)
 # sim.run(until='2020-01-30')							   # Let it run for the first 30 days
-# sim.save('Japan100kV' + str(version) + '.sim')		   # Save the sim
-sim = cv.load('Japan100kV' + str(version) + '.sim')    # Load the sim 
+# sim.save('Seattle100kV' + str(version) + '.sim')		   # Save the sim
+sim = cv.load('Seattle100kV' + str(version) + '.sim')    # Load the sim 
 
 
 G = nx.DiGraph()									   # Directed graph because for all (p1, p2) there exists an edge from p1 -> p2 and from p2 -> p1
@@ -67,7 +67,7 @@ for layer in layers:
 			G.add_edge(p2, p1, weight = '{:.6f}'.format(probabilityP2_P1))
 
 # Edgelist with all edges to investigate shift in PDF as a result of vaccination
-nx.write_weighted_edgelist(G, 'Japan_100k_V' + str(version) + '.edgelist')
+nx.write_weighted_edgelist(G, 'Seattle_100k_V' + str(version) + '.edgelist')
 
 # Set of nodes with 'rel_sus' == 0 is the union of already vaccinated nodes and recovered nodes.  
 removeNodes = np.where(sim.people['rel_sus'] == 0)[0]
@@ -76,4 +76,4 @@ for node in removeNodes:							   # No need to vaccinate, hence PREEMPT shouldn'
 	G.remove_node(node)
 
 # Generate the input edgelist for PREEMPT
-nx.write_weighted_edgelist(G, 'Japan_100k_PREEMPT_V' + str(version) + '.edgelist')
+nx.write_weighted_edgelist(G, 'Seattle_100k_PREEMPT_V' + str(version) + '.edgelist')
