@@ -20,7 +20,7 @@ from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 
 
-embeddingFile = 'Seattle100kTopology.edgelist.emb'
+embeddingFile = 'citationPh.emb'
 with open(embeddingFile, 'r') as file:
     data = file.read().replace('\n', ',')
     
@@ -55,10 +55,13 @@ for i in range(len(data)):
 fig = plt.figure()
 ax = fig.add_subplot(projection='3d')
 ax.scatter(xs = x, ys = y, zs = z, s = 0.01)
+#ax.set_zlim(-0.4,0.2)
+#ax.set_ylim(-0.5,1.0)
+#ax.set_ylim(-0.1,0.5)
 
-fig.savefig('EmbeddingViz.png', dpi = 500)
+fig.savefig('FBEmbeddingViz.png', dpi = 500)
 
-db = DBSCAN(eps=0.01, min_samples=10).fit(data)
+db = DBSCAN(eps=0.05, min_samples=10).fit(data)
 
 core_samples_mask = np.zeros_like(db.labels_, dtype=bool)
 core_samples_mask[db.core_sample_indices_] = True
@@ -77,8 +80,11 @@ colors = np.random.rand(len(labels),3)
 fig = plt.figure()
 ax = fig.add_subplot(projection='3d')
 ax.scatter(xs = x, ys = y, zs = z, c = colors[labels], s = 0.01)
+ax.set_zlim(-0.4,0.2)
+#ax.set_ylim(-0.5,1.0)
+ax.set_ylim(-0.1,0.5)
 
-fig.savefig('EmbeddingVizClustered.png', dpi = 500)
+fig.savefig('FBEmbeddingVizClustered.png', dpi = 500)
 
 
 
