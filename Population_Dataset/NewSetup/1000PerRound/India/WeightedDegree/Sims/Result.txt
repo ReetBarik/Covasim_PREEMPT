@@ -1,0 +1,68 @@
+Covasim 3.0.1 (2021-04-16) — © 2021 by IDM
+  Running "Baseline": 2020-01-31 (30/120) (0.03 s)  •••••——————————————— 26%
+  Running "Baseline": 2020-02-10 (40/120) (0.33 s)  ••••••—————————————— 34%
+  Running "Baseline": 2020-02-20 (50/120) (0.63 s)  ••••••••———————————— 42%
+  Running "Baseline": 2020-03-01 (60/120) (1.05 s)  ••••••••••—————————— 50%
+  Running "Baseline": 2020-03-11 (70/120) (1.54 s)  •••••••••••————————— 59%
+  Running "Baseline": 2020-03-21 (80/120) (1.96 s)  •••••••••••••——————— 67%
+  Running "Baseline": 2020-03-31 (90/120) (2.28 s)  •••••••••••••••————— 75%
+  Running "Baseline": 2020-04-10 (100/120) (2.54 s)  ••••••••••••••••———— 83%
+  Running "Baseline": 2020-04-20 (110/120) (2.81 s)  ••••••••••••••••••—— 92%
+  Running "Baseline": 2020-04-30 (120/120) (3.04 s)  •••••••••••••••••••• 100%
+
+Simulation "Baseline" summary:
+   84855 cumulative infections
+       0 cumulative reinfections
+   84838 cumulative infectious
+   54229 cumulative symptomatic cases
+    2957 cumulative severe cases
+     658 cumulative critical cases
+   84514 cumulative recoveries
+     202 cumulative deaths
+       0 cumulative tests
+       0 cumulative diagnoses
+       0 cumulative quarantined people
+       0 cumulative vaccinations
+       0 cumulative vaccinated people
+
+  Running "V0": 2020-02-10 (40/120) (0.10 s)  ••••••—————————————— 34%
+  Running "V0": 2020-02-20 (50/120) (0.39 s)  ••••••••———————————— 42%
+  Running "V0": 2020-03-01 (60/120) (0.76 s)  ••••••••••—————————— 50%
+  Running "V0": 2020-03-11 (70/120) (1.22 s)  •••••••••••————————— 59%
+  Running "V0": 2020-03-21 (80/120) (1.62 s)  •••••••••••••——————— 67%
+  Running "V0": 2020-03-31 (90/120) (1.99 s)  •••••••••••••••————— 75%
+  Running "V0": 2020-04-10 (100/120) (2.28 s)  ••••••••••••••••———— 83%
+  Running "V0": 2020-04-20 (110/120) (2.53 s)  ••••••••••••••••••—— 92%
+  Running "V0": 2020-04-30 (120/120) (2.78 s)  •••••••••••••••••••• 100%
+
+Simulation "V0" summary:
+   81446 cumulative infections
+       0 cumulative reinfections
+   81406 cumulative infectious
+   52255 cumulative symptomatic cases
+    2904 cumulative severe cases
+     688 cumulative critical cases
+   80893 cumulative recoveries
+     233 cumulative deaths
+       0 cumulative tests
+       0 cumulative diagnoses
+       0 cumulative quarantined people
+       0 cumulative vaccinations
+       0 cumulative vaccinated people
+
+  Running "V12": 2020-04-30 (120/120) (0.01 s)  •••••••••••••••••••• 100%
+
+Simulation "V12" summary:
+   62669 cumulative infections
+       0 cumulative reinfections
+   62570 cumulative infectious
+   40455 cumulative symptomatic cases
+    2240 cumulative severe cases
+     532 cumulative critical cases
+   61782 cumulative recoveries
+     195 cumulative deaths
+       0 cumulative tests
+       0 cumulative diagnoses
+       0 cumulative quarantined people
+       0 cumulative vaccinations
+       0 cumulative vaccinated people
